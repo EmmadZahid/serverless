@@ -1,8 +1,6 @@
 const { DataTypes } = require("sequelize");
 const getSequelize = require("../config/database");
 
-// console.log(getSequelize());
-
 const Customer = getSequelize().define(
   "Customer",
   {
