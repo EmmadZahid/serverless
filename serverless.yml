@@ -15,14 +15,6 @@ provider:
   lambdaHashingVersion: 20201221
 
 functions:
-  first:
-    handler: src/handlers/first.hello
-  second:
-    handler: src/handlers/second.hello
-    events:
-      - httpApi:
-          method: get
-          path: /second
   getCustomers:
     handler: src/handlers/customer/get-all.action
     events:

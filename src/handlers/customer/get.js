@@ -1,20 +1,12 @@
-const dbClient = require("../../config/database");
-const { escapeAndExecuteQuery, transformDataForClient, createResponse } = require("../../common/utils");
-
+const { transformDataForClient, createResponse } = require("../../common/utils");
+const Customer = require("../../models/customer");
 export const action = async (event, context, cb) => {
   try {
-    await dbClient.connect();
-
-    const query = "SELECT * FROM customer WHERE id=$1 AND deleted=false;";
-    const values = [event.pathParameters.id];
-
-    const result = await escapeAndExecuteQuery(dbClient, query, values);
-
-    const rows = transformDataForClient(result.rows)
-    cb(null, (rows.length > 0) ? createResponse(200, rows[0]) : createResponse(404,{},"Customer not found"));
+    const customer = await Customer.findByPk(event.pathParameters.id);
+    const response = (customer) ? transformDataForClient(customer.dataValues) : createResponse(404,{},"Customer not found")
+    cb(null, response);
   } catch (error) {
     cb(error, null);
   } finally {
-    dbClient.end();
   }
 };

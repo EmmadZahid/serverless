@@ -1,21 +1,18 @@
-const dbClient = require("../../config/database");
-const { escapeAndExecuteQuery, createResponse } = require("../../common/utils");
+const { createResponse } = require("../../common/utils");
+const Customer = require("../../models/customer");
 
 export const action = async (event, context, cb) => {
   try {
-    await dbClient.connect();
-
-    const query = "UPDATE customer SET deleted=true WHERE id=$1;";
-    const values = [event.pathParameters.id];
-
-    const result = await escapeAndExecuteQuery(dbClient, query, values);
-    if(result.rowCount > 0)
-      cb(null, createResponse(200, {}, "Item deleted"));
-    else
-      cb(null, createResponse(400, {}, "Item not deleted"));
+    const customer = await Customer.findByPk(event.pathParameters.id);
+    if (customer) {
+      customer.deleted = true
+      await customer.save();
+      cb(null, createResponse(200, {}, "Customer Deleted"));
+    } else {
+      cb(null, createResponse(404, {}, "Customer not found"));
+    }
   } catch (error) {
     cb(error, null);
   } finally {
-    dbClient.end();
   }
 };

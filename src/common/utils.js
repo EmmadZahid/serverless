@@ -20,17 +20,25 @@ let snakeCaseToCamelCase = snakeCase => {
 };
 
 let transformDataForClient = items => {
-  return items.map(item => {
+  if (typeof items === Array) {
+    return items.map(item => {
+      const newItem = {};
+      for (let key in item) {
+        newItem[snakeCaseToCamelCase(key)] = item[key];
+      }
+      return newItem;
+    });
+  } else {
     const newItem = {};
-    for (let key in item) {
-      newItem[snakeCaseToCamelCase(key)] = item[key];
-    }
-    return newItem;
-  });
+      for (let key in items) {
+        newItem[snakeCaseToCamelCase(key)] = items[key];
+      }
+      return newItem;
+  }
 };
 
 let createResponse = (status, body, message) => {
-    const newBody = body
+  const newBody = body;
   if (message) {
     newBody.message = message;
   }
