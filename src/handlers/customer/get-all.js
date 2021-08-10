@@ -32,7 +32,7 @@ export const action = async (event, context, cb) => {
 
     query += `LIMIT ${body.pageSize}`;
     
-    const result = await dbClient.query(query);
+    const result = await dbClient.query(query);   //TODO: running direct query can cause SQL injection. Do it using escapeAndExecuteQuery()
     const rows = transformDataForClient(result.rows);
     cb(null, createResponse(200, rows));
   } catch (error) {

@@ -91,10 +91,9 @@
   !*** ./src/handlers/first.js ***!
   \*******************************/
 /*! exports provided: hello */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"hello\", function() { return hello; });\nconst hello = (event, context, callback) => {\n  const p = new Promise(resolve => {\n    resolve('success');\n  });\n  p.then(() => callback(null, {\n    message: 'Go Serverless Webpack (Ecma Script) v1.0! First module!',\n    event\n  })).catch(e => callback(e));\n};\n\n//# sourceURL=webpack:///./src/handlers/first.js?");
+eval("throw new Error(\"Module build failed (from ./node_modules/babel-loader/lib/index.js):\\nError: ENOENT: no such file or directory, open 'D:\\\\work\\\\NBS\\\\Learning\\\\serverless\\\\assignment\\\\src\\\\handlers\\\\first.js'\");\n\n//# sourceURL=webpack:///./src/handlers/first.js?");
 
 /***/ })
 

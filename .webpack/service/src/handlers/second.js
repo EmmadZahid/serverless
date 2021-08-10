@@ -91,10 +91,9 @@
   !*** ./src/handlers/second.js ***!
   \********************************/
 /*! exports provided: hello */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"hello\", function() { return hello; });\nconst hello = (event, context, cb) => {\n  const p = new Promise(resolve => {\n    resolve('success');\n  });\n  const response = {\n    statusCode: 200,\n    body: JSON.stringify({\n      message: 'Go Serverless Webpack (Ecma Script) v1.0! Second module!' // input: event,\n\n    }, null, 2)\n  };\n  p.then(() => cb(null, response)).catch(e => cb(e));\n};\n\n//# sourceURL=webpack:///./src/handlers/second.js?");
+eval("throw new Error(\"Module build failed (from ./node_modules/babel-loader/lib/index.js):\\nError: ENOENT: no such file or directory, open 'D:\\\\work\\\\NBS\\\\Learning\\\\serverless\\\\assignment\\\\src\\\\handlers\\\\second.js'\");\n\n//# sourceURL=webpack:///./src/handlers/second.js?");
 
 /***/ })
 
