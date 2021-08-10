@@ -13,10 +13,12 @@
 const Sequelize = require("sequelize");
 // import * as pg from "pg";
 const pg = require("pg");
-const sequelize = new Sequelize("northbay_db", "postgres", "123456", {
+const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT } = process.env;
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   dialectModule: pg,
   dialect: "postgres",
-  host: "localhost"
+  host: DB_HOST,
+  port: DB_PORT
 });
 
 // (async () => {
