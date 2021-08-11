@@ -1,9 +1,9 @@
 const { createResponse } = require("../../common/utils");
 const Customer = require("../../models/customer");
-const getSequelize = require("../../config/database");
+const sequelize = require("../../config/database");
 
 export const action = async (event, context, cb) => {
-  const t = await getSequelize().transaction();
+  const t = await sequelize.transaction();
   try {
     const customer = await Customer.findByPk(event.pathParameters.id, {
       transaction: t

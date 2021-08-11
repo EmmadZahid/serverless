@@ -8,7 +8,4 @@ const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   port: DB_PORT
 });
 
-let getSequelize = () => {
-  return sequelize;
-};
-module.exports = getSequelize; //Why not module.exports = sequelize
+module.exports = sequelize;

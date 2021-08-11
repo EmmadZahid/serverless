@@ -1,11 +1,11 @@
 const { createResponse } = require("../../common/utils");
 const Customer = require("../../models/customer");
-const getSequelize = require("../../config/database");
+const sequelize = require("../../config/database");
 
 export const action = async (event, context, cb) => {
   try {
     const body = JSON.parse(event.body);
-    await getSequelize().transaction(async t => {
+    await sequelize.transaction(async t => {
       const customer = await Customer.findByPk(body.id);
       if (customer) {
         customer.first_name = body.firstName;

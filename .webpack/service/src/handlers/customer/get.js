@@ -7857,7 +7857,7 @@ eval("async function escapeAndExecuteQuery(client, query, values) {\n  return cl
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const Sequelize = __webpack_require__(/*! sequelize */ \"./node_modules/sequelize/index.js\");\n\nconst pg = __webpack_require__(/*! pg */ \"./node_modules/pg/lib/index.js\");\n\nconst {\n  DB_NAME,\n  DB_USER,\n  DB_PASSWORD,\n  DB_HOST,\n  DB_PORT\n} = process.env;\nconst sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {\n  dialectModule: pg,\n  dialect: \"postgres\",\n  host: DB_HOST,\n  port: DB_PORT\n});\n\nlet getSequelize = () => {\n  return sequelize;\n};\n\nmodule.exports = getSequelize; //Why not module.exports = sequelize\n\n//# sourceURL=webpack:///./src/config/database.js?");
+eval("const Sequelize = __webpack_require__(/*! sequelize */ \"./node_modules/sequelize/index.js\");\n\nconst pg = __webpack_require__(/*! pg */ \"./node_modules/pg/lib/index.js\");\n\nconst {\n  DB_NAME,\n  DB_USER,\n  DB_PASSWORD,\n  DB_HOST,\n  DB_PORT\n} = process.env;\nconst sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {\n  dialectModule: pg,\n  dialect: \"postgres\",\n  host: DB_HOST,\n  port: DB_PORT\n});\nmodule.exports = sequelize;\n\n//# sourceURL=webpack:///./src/config/database.js?");
 
 /***/ }),
 
@@ -7880,7 +7880,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const {\n  DataTypes\n} = __webpack_require__(/*! sequelize */ \"./node_modules/sequelize/index.js\");\n\nconst getSequelize = __webpack_require__(/*! ../config/database */ \"./src/config/database.js\");\n\nconst Customer = getSequelize().define(\"customer\", {\n  id: {\n    type: DataTypes.BIGINT,\n    autoIncrement: true,\n    allowNull: false,\n    primaryKey: true\n  },\n  first_name: {\n    type: DataTypes.STRING(50),\n    allowNull: false\n  },\n  last_name: {\n    type: DataTypes.STRING(50),\n    allowNull: false\n  },\n  email: {\n    type: DataTypes.STRING(150)\n  },\n  deleted: {\n    type: DataTypes.BOOLEAN\n  }\n}, {\n  freezeTableName: true,\n  tableName: 'customer',\n  timestamps: false\n});\nmodule.exports = Customer;\n\n//# sourceURL=webpack:///./src/models/customer.js?");
+eval("const {\n  DataTypes\n} = __webpack_require__(/*! sequelize */ \"./node_modules/sequelize/index.js\");\n\nconst sequelize = __webpack_require__(/*! ../config/database */ \"./src/config/database.js\");\n\nconst Customer = sequelize.define(\"customer\", {\n  id: {\n    type: DataTypes.BIGINT,\n    autoIncrement: true,\n    allowNull: false,\n    primaryKey: true\n  },\n  first_name: {\n    type: DataTypes.STRING(50),\n    allowNull: false\n  },\n  last_name: {\n    type: DataTypes.STRING(50),\n    allowNull: false\n  },\n  email: {\n    type: DataTypes.STRING(150)\n  },\n  deleted: {\n    type: DataTypes.BOOLEAN\n  }\n}, {\n  freezeTableName: true,\n  tableName: 'customer',\n  timestamps: false\n});\nmodule.exports = Customer;\n\n//# sourceURL=webpack:///./src/models/customer.js?");
 
 /***/ }),
 
