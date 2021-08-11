@@ -6,12 +6,13 @@ export const action = async (event, context, cb) => {
     await dbClient.connect();
     const body = JSON.parse(event.body);
 
-    const query = "INSERT INTO customer (first_name, last_name, email) VALUES ($1, $2, $3);";
+    const query =
+      "INSERT INTO customer (first_name, last_name, email) VALUES ($1, $2, $3);";
     const values = [body.firstName, body.lastName, body.email];
-    await dbClient.query(query,values);
+    await dbClient.query(query, values);
     cb(null, createResponse(201, {}));
   } catch (error) {
-    cb(error, null);
+    cb(null, createResponse(500, {}, "Some error occurred"));
   } finally {
     dbClient.end();
   }

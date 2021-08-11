@@ -6,16 +6,16 @@ export const action = async (event, context, cb) => {
     await dbClient.connect();
     const body = JSON.parse(event.body);
 
-    const query = "UPDATE customer set first_name=$1, last_name=$2, email=$3 WHERE id=$4;";
+    const query =
+      "UPDATE customer set first_name=$1, last_name=$2, email=$3 WHERE id=$4;";
     const values = [body.firstName, body.lastName, body.email, body.id];
-    const result = await dbClient.query(query,values);
+    const result = await dbClient.query(query, values);
 
-    if(result.rowCount > 0)
+    if (result.rowCount > 0)
       cb(null, createResponse(200, {}, "Customer Updated"));
-    else
-      cb(null, createResponse(404, {}, "Customer not found"));
+    else cb(null, createResponse(400, {}, "Customer not found"));
   } catch (error) {
-    cb(error, null);
+    cb(null, createResponse(500, {}, "Some error occurred"));
   } finally {
     dbClient.end();
   }

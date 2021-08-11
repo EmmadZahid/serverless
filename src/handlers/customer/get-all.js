@@ -10,10 +10,10 @@ export const action = async (event, context, cb) => {
     const body = JSON.parse(event.body);
     let query = `SELECT * FROM customer `;
     if (body.search && body.search.length > 0) {
-      const searchText = body.search.toLowerCase()
+      const searchText = body.search.toLowerCase();
       query += ` WHERE (LOWER(first_name) LIKE '${searchText}%' OR last_name LIKE '${searchText}%') AND deleted IS NOT TRUE `;
-    } else{
-      query += ` WHERE deleted IS NOT TRUE `
+    } else {
+      query += ` WHERE deleted IS NOT TRUE `;
     }
 
     if (body.sort) {
@@ -31,12 +31,12 @@ export const action = async (event, context, cb) => {
     }
 
     query += `LIMIT ${body.pageSize}`;
-    
-    const result = await dbClient.query(query);   //TODO: running direct query can cause SQL injection. Do it using escapeAndExecuteQuery()
+
+    const result = await dbClient.query(query); //TODO: running direct query can cause SQL injection. Do it using escapeAndExecuteQuery()
     const rows = transformDataForClient(result.rows);
     cb(null, createResponse(200, rows));
   } catch (error) {
-    cb(error, null);
+    cb(null, createResponse(500, {}, "Some error occurred"));
   } finally {
     dbClient.end();
   }

@@ -8,13 +8,11 @@ export const action = async (event, context, cb) => {
     const query = "UPDATE customer SET deleted=true WHERE id=$1;";
     const values = [event.pathParameters.id];
 
-    const result = await dbClient.query(query,values);
-    if(result.rowCount > 0)
-      cb(null, createResponse(200, {}, "Item deleted"));
-    else
-      cb(null, createResponse(400, {}, "Item not deleted"));
+    const result = await dbClient.query(query, values);
+    if (result.rowCount > 0) cb(null, createResponse(200, {}, "Customer deleted"));
+    else cb(null, createResponse(400, {}, "Customer not found"));
   } catch (error) {
-    cb(error, null);
+    cb(null, createResponse(500, {}, "Some error occurred"));
   } finally {
     dbClient.end();
   }
