@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 const getSequelize = require("../config/database");
 
-const Customer = getSequelize().define(
-  "customer",
+const Project = getSequelize().define(
+  "project",
   {
     id: {
       type: DataTypes.BIGINT,
@@ -10,26 +10,30 @@ const Customer = getSequelize().define(
       allowNull: false,
       primaryKey: true
     },
-    first_name: {
+    name: {
       type: DataTypes.STRING(50),
       allowNull: false
     },
-    last_name: {
-      type: DataTypes.STRING(50),
-      allowNull: false
+    customer_id: {
+      type: DataTypes.BIGINT,
+      references: {
+        model: 'customer',
+        key: "id"
+      }
     },
-    email: {
-      type: DataTypes.STRING(150)
-    },
-    deleted: {
-      type: DataTypes.BOOLEAN
+    employee_id: {
+      type: DataTypes.BIGINT,
+      references: {
+        model: 'employee',
+        key: "id"
+      }
     }
   },
   {
     freezeTableName: true,
-    tableName: 'customer',
+    tableName: "project",
     timestamps: false
   }
 );
 
-module.exports = Customer
+module.exports = Project;
