@@ -11,7 +11,8 @@ export const action = async (event, context, cb) => {
     await customer.save();
     cb(null, createResponse(201, {}));
   } catch (error) {
-    cb(error, null);
+    // cb(error, null);
+    cb(null, createResponse(500, {}, "Some error occurred"));
   } finally {
   }
 };
