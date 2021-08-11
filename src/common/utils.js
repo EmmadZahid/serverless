@@ -38,7 +38,7 @@ let transformDataForClient = items => {
 };
 
 let createResponse = (status, body, message) => {
-  const newBody = body;
+  const newBody = body || {};
   if (message) {
     newBody.message = message;
   }
