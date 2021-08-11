@@ -29,7 +29,7 @@ export const action = async (event, context, cb) => {
     });
     cb(null, createResponse(200, response));
   } catch (error) {
-    cb(error, null);
+    cb(null, createResponse(500, {}, "Some error occurred"));
   } finally {
 
   }

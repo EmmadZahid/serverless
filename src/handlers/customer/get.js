@@ -6,7 +6,7 @@ export const action = async (event, context, cb) => {
     const response = (customer) ? transformDataForClient(customer.dataValues) : createResponse(404,{},"Customer not found")
     cb(null, response);
   } catch (error) {
-    cb(error, null);
+    cb(null, createResponse(500, {}, "Some error occurred"));
   } finally {
   }
 };
