@@ -1,5 +1,5 @@
 const dbClient = require("../../config/database");
-const { escapeAndExecuteQuery, createResponse } = require("../../common/utils");
+const { createResponse } = require("../../common/utils");
 
 export const action = async (event, context, cb) => {
   try {
@@ -8,7 +8,7 @@ export const action = async (event, context, cb) => {
 
     const query = "INSERT INTO customer (first_name, last_name, email) VALUES ($1, $2, $3);";
     const values = [body.firstName, body.lastName, body.email];
-    await escapeAndExecuteQuery(dbClient, query, values);
+    await dbClient.query(query,values);
     cb(null, createResponse(201, {}));
   } catch (error) {
     cb(error, null);

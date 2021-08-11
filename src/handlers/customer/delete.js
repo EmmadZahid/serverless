@@ -1,5 +1,5 @@
 const dbClient = require("../../config/database");
-const { escapeAndExecuteQuery, createResponse } = require("../../common/utils");
+const { createResponse } = require("../../common/utils");
 
 export const action = async (event, context, cb) => {
   try {
@@ -8,7 +8,7 @@ export const action = async (event, context, cb) => {
     const query = "UPDATE customer SET deleted=true WHERE id=$1;";
     const values = [event.pathParameters.id];
 
-    const result = await escapeAndExecuteQuery(dbClient, query, values);
+    const result = await dbClient.query(query,values);
     if(result.rowCount > 0)
       cb(null, createResponse(200, {}, "Item deleted"));
     else

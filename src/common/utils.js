@@ -1,10 +1,10 @@
-async function escapeAndExecuteQuery(client, query, values) {
-  return client.query({
-    // rowMode: 'array',
-    text: query,
-    values
-  });
-}
+// async function escapeAndExecuteQuery(client, query, values) {
+//   return client.query({
+//     // rowMode: 'array',
+//     text: query,
+//     values
+//   });
+// }
 
 let camelCaseToSnakeCase = camelCase => {
   return camelCase.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
@@ -42,7 +42,7 @@ let createResponse = (status, body, message) => {
   return response;
 };
 module.exports = {
-  escapeAndExecuteQuery,
+  // escapeAndExecuteQuery,
   camelCaseToSnakeCase,
   snakeCaseToCamelCase,
   transformDataForClient,
