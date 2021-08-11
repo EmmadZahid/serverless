@@ -21,6 +21,13 @@ const Employee = sequelize.define(
     email: {
       type: DataTypes.STRING(150),
       allowNull: false
+    },
+    customer_id: {
+      type: DataTypes.BIGINT,
+      references: {
+        model: 'cutomer',
+        key: "id"
+      }
     }
   },
   {
