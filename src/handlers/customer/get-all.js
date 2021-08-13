@@ -10,11 +10,11 @@ export const action = vandium
       search: vandium.types.string().valid(''),
       pageSize: vandium.types
         .number()
-        .min(0)
+        .min(1)
         .required(),
       pageNum: vandium.types
         .number()
-        .min(1)
+        .min(0)
         .required(),
       sort: vandium.types
         .string()
