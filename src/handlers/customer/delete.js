@@ -1,30 +1,32 @@
-const { createResponse } = require("../../common/utils");
 const Customer = require("../../models/customer");
 const sequelize = require("../../config/database");
+const vandium = require("vandium");
 
-export const action = async (event, context, cb) => {
-  const t = await sequelize.transaction();
-  try {
-    const customer = await Customer.findByPk(event.pathParameters.id, {
-      transaction: t
-    });
-    if (customer) {
+export const action = vandium
+  .api()
+  .DELETE()
+  // .validation({
+  //   requestParameters:{
+  //     id: vandium.types.number().required()
+  //   }
+  // })
+  .handler(async event => {
+    const t = await sequelize.transaction();
+    try {
+      const customer = await Customer.findByPk(event.pathParameters.id, {
+        transaction: t
+      });
+      if (!customer) {
+        const error = new Error("Customer not found");
+        error.statusCode = 404;
+        throw error;
+      }
       customer.deleted = true;
       await customer.save({ transaction: t });
       await t.commit();
-      cb(null, createResponse(200, {}, "Customer Deleted"));
-    } else {
-      const error = new Error("Customer not found");
-      error.statusCode = 404;
+      return { body: "Customer deleted" };
+    } catch (error) {
+      await t.rollback();
       throw error;
     }
-  } catch (error) {
-    await t.rollback();
-    if (error.statusCode) {
-      cb(null, createResponse(error.statusCode, {}, error.message));
-    } else {
-      cb(null, createResponse(500, {}, "Some error occurred"));
-    }
-  } finally {
-  }
-};
+  });

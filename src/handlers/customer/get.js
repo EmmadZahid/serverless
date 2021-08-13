@@ -1,12 +1,19 @@
-const { transformDataForClient, createResponse } = require("../../common/utils");
+const {
+  transformDataForClient
+} = require("../../common/utils");
 const Customer = require("../../models/customer");
-export const action = async (event, context, cb) => {
-  try {
+const vandium = require("vandium");
+
+
+export const action = vandium
+  .api()
+  .GET()
+  .handler(async event => {
     const customer = await Customer.findByPk(event.pathParameters.id);
-    const response = (customer) ? transformDataForClient(customer.dataValues) : createResponse(404,{},"Customer not found")
-    cb(null, response);
-  } catch (error) {
-    cb(null, createResponse(500, {}, "Some error occurred"));
-  } finally {
-  }
-};
+    if (!customer) {
+      const error = new Error("Customer not found");
+      error.statusCode = 400;
+      throw error;
+    }
+    return transformDataForClient(customer.dataValues);
+  });

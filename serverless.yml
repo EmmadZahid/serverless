@@ -20,30 +20,30 @@ functions:
   getCustomers:
     handler: src/handlers/customer/get-all.action
     events:
-      - httpApi:
+      - http:
           method: post
           path: /customer/getAll
   createCustomer:
     handler: src/handlers/customer/create.action
     events:
-      - httpApi:
+      - http:
           method: post
           path: /customer/create
   updateCustomer:
     handler: src/handlers/customer/update.action
     events:
-      - httpApi:
+      - http:
           method: post
           path: /customer/update
   deleteCustomer:
     handler: src/handlers/customer/delete.action
     events:
-      - httpApi:
+      - http:
           method: delete
           path: /customer/{id}
   getCustomer:
     handler: src/handlers/customer/get.action
     events:
-      - httpApi:
+      - http:
           method: get
           path: /customer/{id}
