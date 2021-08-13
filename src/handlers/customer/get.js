@@ -8,6 +8,11 @@ const vandium = require("vandium");
 export const action = vandium
   .api()
   .GET()
+  .validation({
+    pathParameters:{
+      id: vandium.types.number().required()
+    }
+  })
   .handler(async event => {
     const customer = await Customer.findByPk(event.pathParameters.id);
     if (!customer) {

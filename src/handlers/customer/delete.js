@@ -5,11 +5,11 @@ const vandium = require("vandium");
 export const action = vandium
   .api()
   .DELETE()
-  // .validation({
-  //   requestParameters:{
-  //     id: vandium.types.number().required()
-  //   }
-  // })
+  .validation({
+    pathParameters:{
+      id: vandium.types.number().required()
+    }
+  })
   .handler(async event => {
     const t = await sequelize.transaction();
     try {
