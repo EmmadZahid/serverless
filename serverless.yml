@@ -17,33 +17,34 @@ provider:
   environment: ${file(serverless-env.yml):${self:provider.stage}}
 
 functions:
-  getCustomers:
-    handler: src/handlers/customer/get-all.action
+  graphql:
+    handler: src/graphql/graphql.graphqlHandler
     events:
-      - httpApi:
+      - http:
           method: post
-          path: /customer/getAll
-  createCustomer:
-    handler: src/handlers/customer/create.action
-    events:
-      - httpApi:
-          method: post
-          path: /customer/create
-  updateCustomer:
-    handler: src/handlers/customer/update.action
-    events:
-      - httpApi:
-          method: post
-          path: /customer/update
-  deleteCustomer:
-    handler: src/handlers/customer/delete.action
-    events:
-      - httpApi:
-          method: delete
-          path: /customer/{id}
-  getCustomer:
-    handler: src/handlers/customer/get.action
-    events:
-      - httpApi:
-          method: get
-          path: /customer/{id}
+          path: /
+  # getCustomers:
+  #   handler: src/handlers/customer/get-all.action
+  #   events:
+  #     - httpApi:
+  #         method: post
+  #         path: /customer/getAll
+  # createCustomer:
+  #   handler: src/handlers/customer/create.action
+  #   events:
+  #     - httpApi:
+  #         method: post
+  #         path: /customer/create
+  # updateCustomer:
+  #   handler: src/handlers/customer/update.action
+  #   events:
+  #     - httpApi:
+  #         method: post
+  #         path: /customer/update
+  # deleteCustomer:
+  #   handler: src/handlers/customer/delete.action
+  #   events:
+  #     - httpApi:
+  #         method: delete
+  #         path: /customer/{id}
+  
