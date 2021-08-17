@@ -1,11 +1,9 @@
 // graphql.js
 
-// const { ApolloServer, gql } = require("apollo-server-lambda");
-import { graphqlLambda, gql, graphiqlLambda } from "apollo-server-lambda";
-import { makeExecutableSchema } from "graphql-tools";
+const { ApolloServer, gql } = require('apollo-server-lambda');
 
 // Construct a schema, using GraphQL schema language
-const schema = gql`
+const typeDefs = gql`
   type Query {
     hello: String
   }
@@ -14,26 +12,10 @@ const schema = gql`
 // Provide resolver functions for your schema fields
 const resolvers = {
   Query: {
-    hello: () => "Hello world!"
-  }
+    hello: () => 'Hello world!',
+  },
 };
 
-const myGraphQLSchema = makeExecutableSchema({ 
-  typeDefs: schema,
-  resolvers
-});
-// const server = new ApolloServer({ schema, resolvers });
+const server = new ApolloServer({ typeDefs, resolvers });
 
-// exports.graphqlHandler = server.createHandler();
-
-
-exports.graphqlHandler = function graphqlHandler(event, context, callback) {
-    function callbackWithHeaders(error, output) {
-      // eslint-disable-next-line no-param-reassign
-      output.headers['Access-Control-Allow-Origin'] = '*';
-      callback(error, output);
-    }
-  
-    const handler = graphqlLambda({ schema: myGraphQLSchema });
-    return handler(event, context, callbackWithHeaders);
-  };
+export const graphqlHandler = server.createHandler();

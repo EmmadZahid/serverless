@@ -12,6 +12,11 @@ module.exports = {
   target: 'node',
   module: {
     rules: [
+      { //https://gokaka.medium.com/error-fix-cant-import-the-named-export-timeunit-from-non-ecmascript-module-only-default-95be1aec2b0a
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: "javascript/auto"
+      },
       {
         test: /\.js$/, // include .js files
         enforce: 'pre', // preload the jshint loader

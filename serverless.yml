@@ -23,6 +23,7 @@ functions:
       - http:
           method: post
           path: /
+          cors: true
   # getCustomers:
   #   handler: src/handlers/customer/get-all.action
   #   events:
