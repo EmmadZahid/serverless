@@ -15,7 +15,10 @@ provider:
   lambdaHashingVersion: 20201221
   stage: 'DEV'
   environment: ${file(serverless-env.yml):${self:provider.stage}}
-
+custom:
+  serverless-offline:
+    httpPort: 5000
+    useChildProcesses: true
 functions:
   graphql:
     handler: src/graphql/graphql.graphqlHandler
@@ -24,6 +27,12 @@ functions:
           method: post
           path: /
           cors: true
+          integration: lambda-proxy
+      - http:
+          path: /
+          method: get
+          cors: true
+          integration: lambda-proxy
   # getCustomers:
   #   handler: src/handlers/customer/get-all.action
   #   events:
